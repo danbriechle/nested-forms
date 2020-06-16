@@ -1,0 +1,30 @@
+<%= form_with(model: drum, local: true) do |form| %>
+  <% if drum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(drum.errors.count, "error") %> prohibited this drum from being saved:</h2>
+
+      <ul>
+      <% drum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :size %>
+    <%= form.text_field :size %>
+      <%= form.fields_for :woods do |w| %>
+        <%= w.label :name %>
+        <%= w.text_field :name %>
+          <%= w.fields_for :cuts do |c| %>
+            <%= c.label :name %>
+            <%= c.text_field :name %>
+          <%end %>
+      <%end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
